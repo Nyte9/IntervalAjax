@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+<title>Interval Call</title>
+<style type="text/css">
+body{
+	text-align: center;
+	font-family: helvetica;
+}
+#mainContent {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: xx-large;
+	font-weight: bold;
+	background-color: #E3F0FB;
+	border-radius: 4px;
+	padding: 10px;
+	text-align: center;
+}
+.buttonStyle {
+	border-radius: 4px;
+	border: thin solid #F0E020;
+	padding: 5px;
+	background-color: #F8F094;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: bold;
+	color: #663300;
+	width: 75px;
+}
+
+.buttonStyle:hover {
+	border: thin solid #FFCC00;
+	background-color: #FCF9D6;
+	color: #996633;
+	cursor: pointer;
+}
+.buttonStyle:active {
+	border: thin solid #99CC00;
+	background-color: #F5FFD2;
+	color: #669900;
+	cursor: pointer;
+}
+.log{
+	text-align:left;
+	background:black;
+	color:white;
+	overflow: scroll;
+	height:200px;
+	border-color:black;
+	border-width:2px;
+	border-style:solid;
+	left: 40%;
+	position: absolute;
+	width: 20%;
+}
+
+</style>
+</head>
+
+<body>
+<h1>Set up timed ajax call</h1>
+<br>
+<form>
+	<input type='text' name='url' id='url' placeholder='URL'></input><br>
+	<input type='text' name='Timing' id='time' placeholder='Interval (ms)'></input><br>
+	<button type='button' onclick='go()' content='GO'>GO</button>
+	<button type='button' onclick='stop()' content='GO'>STOP</button>
+	
+</form><br>
+<div class='log'>Log here</div>
+<script> 
+
+var going = true;
+function stop(){
+	going = false;
+}
+function go(){
+	var worked = false;
+	going = true;
+	$( ".log" ).html('Starting');
+	window.setInterval(function(){
+		if(going){
+			$( ".log" ).html($( ".log" ).html() + '<br>' + 'new call');
+  			$.ajax({
+  				url: $( "#url" ).val(),
+  				context: document.body
+			}).done(function() {
+				worked = true;
+ 					$( ".log" ).html($( ".log" ).html() + '<br>' + 'call done');
+			
+		
+});
+if(!worked){
+		$( ".log" ).html($( ".log" ).html() + '<br>' + 'ERROR: Call not worked');
+}
+}
+}, $( "#time" ).val());
+
+}
+function doSomething() {
+	myText.textContent = "hello, world!";
+}
+</script>
+
+</body>
+</html>
